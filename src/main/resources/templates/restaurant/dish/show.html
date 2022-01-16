@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery food</title>
+    <link rel="stylesheet"  th:href="@{/css/main.css}"/>
+</head>
+<body>
+<header>
+    <div th:insert="~{fragments/header :: header}"></div>
+
+</header>
+<span sec:authorize="isAuthenticated()">
+        <button type="button" onclick="window.location.href='/order/new'"> Создать заказ  </button>
+    </span>
+<br>
+
+
+<h1 th:text="${restaurant.name}"> </h1>
+<h2> Меню </h2>
+
+<form method="post" action="/restaurant/sorted-dish" >
+    <label for="sort">Сортировка</label>
+    <select name="sort" id="sort">
+        <option value="name,asc">По названию в алфавитном порядке </option>
+        <option value="name,desc">По названию в обратном порядке </option>
+        <option value="price,asc">По возрастанию цены</option>
+        <option value="price,desc">По уменьшению цены</option>
+    </select>
+    <input type="hidden" name =restaurantId th:value = "${restaurant.id}">
+    <input type="submit" value="Cортировать">
+</form>
+<br>
+
+<div sec:authorize="hasAuthority('developers:write')">
+<form method="post" action="/restaurant/dish/new">
+    <input type="hidden" name="restaurantId" th:value="${restaurant.id}" >
+    <input type="submit" value="Добавить блюдо в меню выбранного ресторана">
+</form>
+</div>
+
+<table class="content-table">
+    <thead>
+    <tr>
+        <th></th>
+        <th>Названание</th>
+        <th>Описание</th>
+        <th>Цена</th>
+        <th>Вес</th>
+        <div sec:authorize="hasAuthority('developers:write')">
+        <th>Изменить</th>
+        <th>Удалить</th>
+        </div>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="dish : ${dishes}">
+        <td><img th:src="@{'/upload-images/' + ${dish.imageUrl}}" alt="image" width="60" height="50"></td>
+        <td><span th:text="${dish.name}"> Title </span></td>
+        <td><span th:text="${dish.description}"> description </span></td>
+        <td><span th:text="${dish.price}"> price </span></td>
+        <td><span th:text="${dish.weight}"> weight </span></td>
+        <div sec:authorize="hasAuthority('developers:write')">
+            <td><a href="#" th:href="@{'/dish/' + ${dish.id} + '/update'}">Изменить</a></td>
+<!--        <td><a href="#" th:href="@{'/restaurant/' + ${dish.restaurantId} +'/dish/' + ${dish.id} + '/update'}">Изменить</a></td>-->
+        <td><a href="#" th:href="@{'/dish/' + ${dish.id} + '/delete'}">Удалить</a></td>
+        </div>
+        </td>
+    </tr>
+
+    </tbody>
+</table>
+<button type="button"
+        onclick="window.location.href='/'"> Назад
+</button>
+</body>
+</html>

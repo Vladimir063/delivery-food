@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery food</title>
+    <link rel="stylesheet"  href="/css/main.css"/>
+</head>
+<body>
+<header>
+    <div th:insert="~{fragments/header :: header}" ></div>
+
+</header>
+<br>
+<span sec:authorize="isAuthenticated()">
+        <button type="button" onclick="window.location.href='/order/new'"> Создать заказ  </button>
+    </span>
+<br>
+
+<h1>Рестораны</h1>
+
+<form method="get" action="/sorted-restaurants" >
+<label for="sort">Сортировка</label>
+<select name="sort" id="sort">
+    <option value="name,asc">По имени в алфавитном  </option>
+    <option value="name,desc">По имени в обратном </option>
+    <option value="rating,asc">По возрастанию рейтинга</option>
+    <option value="rating,desc">По убыванию рейтинга</option>
+    <option value="averageCheck,asc">По возрастанию чека</option>
+    <option value="averageCheck,desc">По убыванию чека</option>
+</select>
+    <input type="submit" value="Cортировать">
+</form>
+<br> <br>
+
+<form method="get" action="/restaurants-by-cuisine" >
+<label for = "cuisine">Показать рестораны по типу кухни</label>
+<select id="cuisine" name="cuisine">
+    <option th:each="cuisineFromArray : ${#session.getAttribute('cuisinesArray')}" th:value="${cuisineFromArray}" th:text="${cuisineFromArray.getTranslate()}"></option>
+</select>
+    <input type="submit" value="Показть">
+</form>
+
+<br> <br>
+
+<div sec:authorize="hasAuthority('developers:write')">
+<button type="button" onclick="window.location.href='restaurant/new'"> Добавить новый ресторан </button>
+</div>
+
+<table class="content-table", sortable="true">
+    <thead>
+    <tr>
+        <th> </th>
+        <th>Название</th>
+        <th>Рейтинг</th>
+        <th>Кухня</th>
+        <th>Стоимость доставки, руб.</th>
+        <th>Время доставки, мин</th>
+        <th>Средний чек, руб.</th>
+        <th>Просмотр</th>
+        <div sec:authorize="hasAuthority('developers:write')">
+        <th>Редактировать</th>
+        <th>Удалить</th>
+        </div>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="restaurant : ${restaurants}">
+
+        <td><img th:src="@{'/upload-images/' + ${restaurant.logoUrl}}" alt="image" width="60" height="50"></td>
+        <td><span th:text="${restaurant.name}"> rating </span></td>
+        <td><span th:text="${restaurant.rating}"> rating </span></td>
+        <td><span th:text="${restaurant.cuisine.getTranslate()}"> rating </span></td>
+        <td><span th:text="${restaurant.costOfDelivery}"> rating </span></td>
+        <td><span th:text="${restaurant.timeOfDelivery}"> rating </span></td>
+        <td><span th:text="${restaurant.averageCheck}"> rating </span></td>
+        <td> <a href="#" th:href="@{'/restaurant/' + ${restaurant.id} + '/dish'}">Меню </a> </td>
+        <div sec:authorize="hasAuthority('developers:write')">
+        <td><a href="#" th:href="@{'/restaurant/' + ${restaurant.id} + '/update'}">Редактировать </a></td>
+        <td><a href="#" th:href="@{'/restaurant/' + ${restaurant.id} + '/delete'}">Удалить</a></td>
+        </div>
+    </tr>
+
+    </tbody>
+</table>
+
+
+</body>
+</html>
+

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery food</title>
+    <link rel="stylesheet"  th:href="@{/css/main.css}"/>
+</head>
+<body>
+    <header>
+        <div th:insert="~{fragments/header :: header}"></div>
+
+    </header>
+    <main class="form">
+        <h2 th:text = "${restaurant.id == null} ? 'Создание нового ресторана' : 'Обновление информации о ресторане' "> </h2>
+
+        <form method="post" th:action="@{/restaurant/save-or-update}" th:object = "${restaurant}" enctype="multipart/form-data">
+
+            <label for = "name">Введите имя ресторана</label>
+            <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:errorclass="invalid-input"></span>
+            <input type="text" th:field = "*{name}" id = "name">
+
+
+            <label for = "rating">Введите рейтинг ресторана</label>
+            <input type="text" th:field = "*{rating}" id = "rating">
+
+            <label for = "costOfDelivery">Введите стоимость доставки</label>
+            <span th:if="${#fields.hasErrors('costOfDelivery')}" th:errors="*{costOfDelivery}" th:errorclass="invalid-input"></span>
+            <input type="text" th:field = "*{costOfDelivery}" id = "costOfDelivery">
+
+            <label for = "timeOfDelivery">Введите время доставки из ресторана</label>
+            <input type="text" th:field = "*{timeOfDelivery}" id = "timeOfDelivery">
+
+            <label for = "cuisine">Выберите тип ресторана</label>
+            <select id="cuisine" name="cuisine">
+                <option th:each="cuisineFromArray : ${#session.getAttribute('cuisinesArray')}" th:value="${cuisineFromArray}" th:text="${cuisineFromArray.getTranslate()}"></option>
+            </select>
+
+            <label for = "averageCheck">Введите средний чек</label>
+            <input type="text" th:field = "*{averageCheck}" id = "averageCheck">
+
+            <input type="hidden" th:field = "*{id}" >
+            <input type="hidden" th:field = "*{logoUrl}" >
+
+
+            <label for = "logo">Загрузите логотип ресторана</label>
+            <input type="file" name="logo" id="logo">
+
+            <div class="btn">
+                <input type="submit" th:value="*{id == null} ? 'Создать новый ресторан' : 'Обновить' ">
+            </div>
+        </form>
+    </main>
+
+
+</body>
+</html>

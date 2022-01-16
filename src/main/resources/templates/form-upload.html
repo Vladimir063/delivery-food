@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="/save-file"
+      method="post"
+      enctype="multipart/form-data">
+
+    <div>
+        <label>Photos: </label>
+        <input type="file" name="file" accept="image/png, image/jpeg" />
+        <input type="submit" value="send">
+    </div>
+
+</form>
+
+<img src="/images-restaurant/55/5.png">
+</body>
+</html>

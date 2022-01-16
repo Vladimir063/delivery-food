@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery food</title>
+    <link rel="stylesheet"  th:href="@{/css/main.css}"/>
+</head>
+<body>
+<header>
+    <div th:insert="~{fragments/header :: header}"></div>
+</header>
+<h1  th:text = "${order.id == null} ? 'Создание нового заказа' : 'Обновление информации о заказе' ">  </h1>
+<br>
+
+<form th:method="post" th:action="@{/./order/save-or-update-order-step2}"  th:object="${order}">
+
+
+    <label for = "restaurantName">Название ресторана </label>
+    <input type="text" th:field = "${order.restaurantName}" id = "restaurantName" readonly>
+    <input type="hidden" th:field = "${order.restaurantId}" >
+    <br>  <br>
+
+    <label for = "selectDish">Выберите блюдо</label>
+    <select id="selectDish" name="selectDish">
+
+        <option th:each="dish : ${#session.getAttribute('listDishesByRestaurant')}" th:value="${dish.name}" th:text="${dish.name}"></option>
+    </select>
+    <br>  <br>
+
+    <label for = "customerName">Введите ваше имя</label>
+    <input type="text" th:field = "*{customerName}" id = "customerName">
+    <span th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}" th:errorclass="invalid-input"></span>
+    <br>  <br>
+
+    <label for = "customerPhone">Введите ваш телефон</label>
+    <input type="text" th:field = "*{customerPhone}" id = "customerPhone">
+    <br>  <br>
+
+    <label for = "address">Введите ваш адрес</label>
+    <input type="text" th:field = "*{address}" id = "address">
+    <span th:if="${#fields.hasErrors('address')}" th:errors="*{address}" th:errorclass="invalid-input"></span>
+    <br>  <br>
+
+    <label for = "amount"> Введите количество </label>
+    <input type="number" min="1" th:field="*{amount}" id="amount">
+    <br>  <br>
+
+    <input type="submit" th:value="*{id == null} ? 'Сделать заказ' : 'Обновить заказ' ">
+
+</form>
+
+</body>
+</html>

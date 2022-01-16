@@ -1,0 +1,13 @@
+<div class="header1" th:fragment="header" >
+<ul class="menu" >
+    <li><a href="/">Главная</a></li>
+    <li><a href="/order">Все заказы</a></li>
+    <li sec:authorize="!isAuthenticated()"><a href="/auth/login">Войти</a></li>
+    <li sec:authorize="isAuthenticated()"><a href="/auth/logout">Выйти</a></li>
+</ul>
+
+    <span>Вы вошли как: </span>
+    <span sec:authentication="name"></span>
+    <br><br>
+
+</div>

@@ -1,0 +1,143 @@
+
+.menu a {
+    text-decoration: none;
+    font-family: sans-serif;
+    color: #5757a0;
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: lavender;
+    border-bottom: 5px solid #5757a0;
+
+}
+.menu li {
+    display: inline;
+}
+
+* {
+    font-family: sans-serif; 
+}
+
+.content-table {
+    border-collapse: collapse;
+    margin: 25px 0;
+    font-size: 0.9em;
+    min-width: 400px;
+    border-radius: 5px 5px 0 0;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.content-table thead tr {
+    background-color: #5757a0;
+    color: #ffffff;
+    text-align: left;
+    font-weight: bold;
+}
+
+.content-table th,
+.content-table td {
+    padding: 12px 15px;
+}
+
+.content-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.content-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.content-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+
+
+
+
+/*форма логин*/
+
+.auth{
+    width: 500px;
+    padding: 20px;
+    margin: 20px auto;
+    text-align: center;
+    background-color: lightsteelblue;
+}
+
+.auth-title{
+    margin: 0 0 15px;
+    font-size: 20px;
+    color: #c61919;
+    text-align: center;
+}
+
+.auth-login-group input {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 10px;
+}
+
+.auth button{
+    display: block;
+    padding: 10px 40px;
+    margin: 0 auto;
+    color: white;
+    background-color: #034c03;
+}
+
+.auth button:hover{
+    background-color: #04b604;
+}
+
+/* форма создание и изменения */
+
+.form {
+    width: 40%;
+    margin: 0 auto;
+    background-color: lightsteelblue;
+    text-align: center;
+}
+
+.form input {
+    display: block;
+    padding: 7px 10px;
+    margin: 0 auto 15px;
+}
+
+.form select {
+    display: block;
+    padding: 7px 20px;
+    margin: 0 auto 15px;
+}
+
+.form label {
+    display: block;
+    padding: 5px;
+}
+
+.form .btn input{
+    background-color: #009879;
+    color: white;
+    padding: 7px 15px;
+}
+
+.form .btn input{
+    background-color: #009879;
+    color: white;
+    padding: 7px 15px;
+}
+
+.form .btn input:hover{
+    background-color: #03b36f;
+}
+
+.invalid-input {
+    color: #cb4846;
+    font-size: .85rem;
+}

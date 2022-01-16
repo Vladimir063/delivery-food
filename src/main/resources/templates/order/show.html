@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Delivery food</title>
+    <link rel="stylesheet"  th:href="@{/css/main.css}"/>
+</head>
+<body>
+<header>
+    <div th:insert="~{fragments/header :: header}"></div>
+
+</header>
+<span sec:authorize="isAuthenticated()">
+        <button type="button" onclick="window.location.href='/order/new'"> Создать заказ  </button>
+    </span>
+<br>
+<h2> Список всех заказов </h2>
+<form method="get" action="/order" >
+    <label for="sort">Сортировка</label>
+    <select name="sort" id="sort">
+        <option value="restaurantEntity,asc">По имени ресторана  </option>
+        <option value="totalCost,asc">По возрастанию общей стоимости</option>
+        <option value="totalCost,desc">По убыванию общей стоимости</option>
+    </select>
+    <input type="submit" value="Cортировать">
+</form>
+<br> <br>
+
+<table class="content-table">
+    <thead>
+    <tr>
+        <th>Id </th>
+        <th>Ресторан </th>
+        <th>Название блюда </th>
+        <th>Цена 1 шт. </th>
+        <th>Количество </th>
+        <th>Имя покупателя </th>
+        <th>Телефон покупателя </th>
+        <th>Адрес доставки </th>
+        <th>Стоимость доставки</th>
+        <th>Время доставки</th>
+        <th>Общая стоимость</th>
+        <th>Время создание заказа</th>
+        <div sec:authorize="hasAuthority('developers:write')">
+        <th>Изменить заказ</th>
+        <th>Удалить заказ</th>
+        </div>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${orders}">
+        <td><span th:text="${order.id}"> </span></td>
+        <td><span th:text="${order.restaurantName}">  </span></td>
+        <td><span th:text="${order.dishName}">  </span></td>
+        <td><span th:text="${order.dishPrice}">  </span></td>
+        <td><span th:text="${order.amount}"> </span></td>
+        <td><span th:text="${order.customerName}">  </span></td>
+        <td><span th:text="${order.customerPhone}">  </span></td>
+        <td><span th:text="${order.address}">  </span></td>
+        <td><span th:text="${order.costOfDelivery}">  </span></td>
+        <td><span th:text="${order.timeOfDelivery}">  </span></td>
+        <td><span th:text="${order.totalCost}">  </span></td>
+       <td><span th:text="${#temporals.format(order.timeCreateOrder, 'dd-MM-yyyy HH:mm')}">  </span></td>
+
+        <div sec:authorize="hasAuthority('developers:write')">
+        <td><a href="#" th:href="@{'/order/' + ${order.id} + '/update'}">Изменить</a></td>
+        <td><a href="#" th:href="@{'/order/' + ${order.id} + '/delete'}">Удалить</a></td>
+        </div>
+    </tr>
+
+    </tbody>
+</table>
+</body>
+</html>
