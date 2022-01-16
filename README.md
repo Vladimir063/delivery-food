@@ -1,6 +1,6 @@
 # Delivery-food
 ### Pet project
-СRUD приложение реализующие сервис для заказа и доставки еды.
+СRUD приложение реализующее сервис для заказа и доставки еды.
 
 ### Используемые технологии
 Spring Boot, Spring MVC, Spring Data, Spring Security, Spring Validation, 
@@ -41,11 +41,11 @@ __________________________________________________
 |  GET  | /restaurant/{restaurantId}/dish | Получение меню ресторана по его id
 | POST  | /restaurant/dish/new| Получение формы создания блюда 
 | GET  | /dish/{id}/update| Получение формы обновления блюда по id
-| POST  | /restaurant/dish/save-or-update| Создание или обновление информации блюде 
+| POST  | /restaurant/dish/save-or-update| Создание или обновление информации о блюде 
 | GET  | /dish/{id}/delete| Удаление блюда по id 
 
 
-### Заказ
+### Заказы
 | Метод | URL | Описание |  
 | ------ | --- | ---------- 
 |  GET  | /order | Получение всех заказов
